@@ -26,6 +26,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	// redis 관련 의존성 제공
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	// Mysql 관련 의존성 제공
+	implementation 'mysql:mysql-connector-java:8.0.33'
 	// boilerplate 코드를 줄여주는 Lombok 라이브러리 제공
 	compileOnly 'org.projectlombok:lombok'
 	// 개발 및 테스트용으로 사용되는 H2 in-memory 데이터베이스 제공
