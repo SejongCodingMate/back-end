@@ -1,4 +1,4 @@
-package com.creativesemester.SejongCodingMate.member.entity;
+package com.creativesemester.SejongCodingMate.domain.member.entity;
 
 
 import lombok.AllArgsConstructor;

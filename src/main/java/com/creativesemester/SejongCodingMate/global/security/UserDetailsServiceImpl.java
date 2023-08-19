@@ -1,7 +1,7 @@
 package com.creativesemester.SejongCodingMate.global.security;
 
-import com.creativesemester.SejongCodingMate.member.entity.Member;
-import com.creativesemester.SejongCodingMate.member.repository.MemberRepository;
+import com.creativesemester.SejongCodingMate.domain.member.entity.Member;
+import com.creativesemester.SejongCodingMate.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

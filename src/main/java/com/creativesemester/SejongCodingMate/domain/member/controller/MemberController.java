@@ -1,14 +1,15 @@
-package com.creativesemester.SejongCodingMate.member.controller;
+package com.creativesemester.SejongCodingMate.domain.member.controller;
 
 
-import com.creativesemester.SejongCodingMate.member.dto.request.SignUpRequest;
-import com.creativesemester.SejongCodingMate.member.service.MemberService;
+import com.creativesemester.SejongCodingMate.domain.member.dto.request.SignUpRequest;
+import com.creativesemester.SejongCodingMate.domain.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 @RestController
@@ -24,8 +25,8 @@ public class MemberController {
     }
 
     @PostMapping("/api/member/login")
-    public ResponseEntity <Object> login (@RequestBody @Valid SignUpRequest signUpRequest){
-        return memberService.login(signUpRequest);
+    public ResponseEntity <Object> login (@RequestBody @Valid SignUpRequest signUpRequest, HttpServletResponse response){
+        return memberService.login(signUpRequest,response);
     }
 
 
