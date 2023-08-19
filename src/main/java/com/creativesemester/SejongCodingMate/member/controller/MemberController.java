@@ -18,12 +18,12 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    @PostMapping("/api/sign-up")
+    @PostMapping("/api/member/sign-up")
     public ResponseEntity <Object> signUp (@RequestBody @Valid SignUpRequest signUpRequest){
         return ResponseEntity.ok(memberService.signUp(signUpRequest));
     }
 
-    @PostMapping("/api/login")
+    @PostMapping("/api/member/login")
     public ResponseEntity <Object> login (@RequestBody @Valid SignUpRequest signUpRequest){
         return memberService.login(signUpRequest);
     }
