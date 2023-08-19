@@ -4,7 +4,6 @@ package com.creativesemester.SejongCodingMate.member.service;
 import com.creativesemester.SejongCodingMate.member.dto.request.SignUpRequest;
 import com.creativesemester.SejongCodingMate.member.entity.Member;
 import com.creativesemester.SejongCodingMate.member.repository.MemberRepository;
-import io.netty.handler.ssl.OpenSslSessionTicketKey;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
