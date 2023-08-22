@@ -1,4 +1,4 @@
-package com.creativesemester.SejongCodingMate.member.dto.request;
+package com.creativesemester.SejongCodingMate.domain.member.dto.request;
 
 import lombok.Getter;
 import javax.validation.constraints.NotBlank;
