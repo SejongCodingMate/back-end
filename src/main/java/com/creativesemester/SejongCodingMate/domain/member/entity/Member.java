@@ -22,17 +22,23 @@ public class Member {
    @Column(unique = true)
    private String studentId;
 
-   @Column(unique = true)
    private String password;
+   private String major;
+   private String grade;
 
 
 
-   public static Member of(String studentId, String password){
+   public static Member of(String studentId, String password, String major, String grade){
       return Member.builder()
               .studentId(studentId)
               .password(password)
+              .major(major)
+              .grade(grade)
               .build();
    }
 
+   public void changePassword(String newPassword) {
+      this.password = newPassword;
+   }
 
 }
