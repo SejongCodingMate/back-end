@@ -1,7 +1,6 @@
 package com.creativesemester.SejongCodingMate.domain.chapter.controller;
 
 import com.creativesemester.SejongCodingMate.domain.chapter.dto.ChapterRequestDto;
-import com.creativesemester.SejongCodingMate.domain.chapter.entity.Chapter;
 import com.creativesemester.SejongCodingMate.domain.chapter.service.ChapterService;
 import com.creativesemester.SejongCodingMate.global.response.GlobalResponseDto;
 import com.creativesemester.SejongCodingMate.global.security.UserDetailsImpl;
@@ -21,7 +20,7 @@ public class ChapterController {
         return chapterService.createChapter(userDetails.getMember(), chapterRequestDto);
     }
 
-    @GetMapping("/api/chapter")
+    @GetMapping("/api/chapter/{id}")
     public ResponseEntity<GlobalResponseDto> getChapter (@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable Long id){
         return chapterService.getChapter(userDetails.getMember(), id);
     }
