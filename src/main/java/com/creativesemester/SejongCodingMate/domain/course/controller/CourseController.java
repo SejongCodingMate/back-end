@@ -15,12 +15,12 @@ public class CourseController {
 
     private final CourseService courseService;
 
-    @PostMapping("/api/chapter")
+    @PostMapping("/api/course")
     public ResponseEntity<GlobalResponseDto> createCourse (@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestBody CourseRequestDto courseRequestDto){
         return courseService.createCourse(userDetails.getMember(), courseRequestDto);
     }
 
-    @GetMapping("/api/chapter/{id}")
+    @GetMapping("/api/course/{id}")
     public ResponseEntity<GlobalResponseDto> getCourse (@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable Long id){
         return courseService.getCourse(userDetails.getMember(), id);
     }

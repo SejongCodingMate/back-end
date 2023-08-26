@@ -1,7 +1,6 @@
 package com.creativesemester.SejongCodingMate.domain.course.entity;
 
 
-import com.creativesemester.SejongCodingMate.domain.chapter.entity.Chapter;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,7 +20,6 @@ public class Course {
     private Long id;
 
     private String name;
-
 
     public static Course of(String name){
         return Course.builder()
