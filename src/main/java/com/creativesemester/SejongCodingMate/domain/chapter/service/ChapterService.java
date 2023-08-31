@@ -6,7 +6,6 @@ import com.creativesemester.SejongCodingMate.domain.chapter.repository.ChapterRe
 import com.creativesemester.SejongCodingMate.domain.course.entity.Course;
 import com.creativesemester.SejongCodingMate.domain.course.repository.CourseRepository;
 import com.creativesemester.SejongCodingMate.domain.member.entity.Member;
-import com.creativesemester.SejongCodingMate.domain.member.repository.MemberRepository;
 import com.creativesemester.SejongCodingMate.global.response.GlobalResponseDto;
 import com.creativesemester.SejongCodingMate.global.response.ResponseCode;
 import lombok.RequiredArgsConstructor;
