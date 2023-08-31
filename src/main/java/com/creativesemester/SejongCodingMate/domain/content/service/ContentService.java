@@ -31,7 +31,7 @@ public class ContentService {
         contentRepository.save(Content.of(chapter, contentRequestDto.getContents()));
 
         // 2. Return
-        return ResponseEntity.ok(GlobalResponseDto.of(ResponseCode.LOG_IN_SUCCESS));
+        return ResponseEntity.ok(GlobalResponseDto.of(ResponseCode.CONTENTS_CREATE_SUCCESS));
 
     }
 
@@ -45,7 +45,7 @@ public class ContentService {
         }
 
         // 2. Return
-        return ResponseEntity.ok(GlobalResponseDto.of(ResponseCode.LOG_IN_SUCCESS,content));
+        return ResponseEntity.ok(GlobalResponseDto.of(ResponseCode.GET_CONTENTS_SUCCESS,content));
 
     }
 }

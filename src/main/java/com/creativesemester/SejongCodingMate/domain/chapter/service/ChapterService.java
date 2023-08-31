@@ -31,7 +31,7 @@ public class ChapterService {
         chapterRepository.save(Chapter.of(course, chapterRequestDto.getChapterName()));
 
         // 3. Return
-        return ResponseEntity.ok(GlobalResponseDto.of(ResponseCode.LOG_IN_SUCCESS));
+        return ResponseEntity.ok(GlobalResponseDto.of(ResponseCode.CHAPTER_CREATE_SUCCESS));
 
     }
 
@@ -43,7 +43,7 @@ public class ChapterService {
             return ResponseEntity.ok(GlobalResponseDto.of(ResponseCode.NOT_VALID_REQUEST));
         }
 
-        return ResponseEntity.ok(GlobalResponseDto.of(ResponseCode.LOG_IN_SUCCESS,chapter));
+        return ResponseEntity.ok(GlobalResponseDto.of(ResponseCode.GET_CHAPTER_SUCCESS,chapter));
 
     }
 

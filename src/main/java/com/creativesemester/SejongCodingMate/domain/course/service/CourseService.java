@@ -40,7 +40,7 @@ public class CourseService {
         // 1. Get Course
         Optional<Course> course = courseRepository.findById(id);
         if (course.isEmpty()) {
-            return ResponseEntity.ok(GlobalResponseDto.of(ResponseCode.NOT_VALID_REQUEST));
+            return ResponseEntity.ok(GlobalResponseDto.of(ResponseCode.COURSE_CREATE_SUCCESS));
         }
 
         // 2. Make CourseResponseDto
@@ -51,7 +51,7 @@ public class CourseService {
         }
 
         // 3. Return
-        return ResponseEntity.ok(GlobalResponseDto.of(ResponseCode.POST_TEST_SUCCESS, courseResponseDtoList));
+        return ResponseEntity.ok(GlobalResponseDto.of(ResponseCode.GET_COURSE_SUCCESS, courseResponseDtoList));
     }
 
 }
