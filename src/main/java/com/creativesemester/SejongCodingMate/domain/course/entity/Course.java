@@ -26,5 +26,4 @@ public class Course {
                 .name(name)
                 .build();
     }
-
 }

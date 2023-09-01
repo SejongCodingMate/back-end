@@ -71,7 +71,6 @@ public class WebSecurityConfig {
 
         // Security 에서 허용해줄 부분
         http.authorizeRequests()
-                .antMatchers("/api/**").permitAll()
                 .antMatchers("/api/member/**").permitAll()
                 .anyRequest().authenticated()
 

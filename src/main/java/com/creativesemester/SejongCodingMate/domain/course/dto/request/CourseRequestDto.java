@@ -9,6 +9,4 @@ public class CourseRequestDto {
 
     @NotBlank(message = "추가하실 과목 이름을 알려주세요.")
     private String courseName;
-
-
 }

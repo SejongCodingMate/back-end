@@ -16,10 +16,19 @@ public enum ResponseCode {
     CHANGE_PASSWORD(200, "비밀번호가 변경되었습니다."),
 
     // Test 관련
-
     POST_TEST_SUCCESS(200, "POST 테스트 성공했습니다."),
-
     GET_TEST_SUCCESS(200, "GET 테스트 성공했습니다."),
+
+    // Domain 관련
+    COURSE_CREATE_SUCCESS(200, "과목추가 성공했습니다."),
+    GET_COURSE_SUCCESS(200, "과목조회 성공했습니다."),
+
+    CHAPTER_CREATE_SUCCESS(200, "단원추가 성공했습니다."),
+    GET_CHAPTER_SUCCESS(200, "단원조회 성공했습니다."),
+
+    CONTENTS_CREATE_SUCCESS(200, "개념추가 성공했습니다."),
+    GET_CONTENTS_SUCCESS(200, "개념조회 성공했습니다."),
+
     /*============================ FAIL ================================*/
 
     //Global
