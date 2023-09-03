@@ -48,7 +48,7 @@ public class MemberService {
         memberRepository.save(Member.of(authRequestDto.getId(), authRequestDto.getId(), major, grade));
 
         return ResponseEntity.ok(GlobalResponseDto.of(ResponseCode.SIGN_UP_SUCCESS,
-                new AuthResponseDto(authRequestDto.getId())));
+                AuthResponseDto.of(authRequestDto.getId())));
     }
 
     public ResponseEntity<GlobalResponseDto> login(AuthRequestDto authRequestDto, HttpServletResponse response) {
