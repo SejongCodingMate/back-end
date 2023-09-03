@@ -43,7 +43,7 @@ public class MemberController {
             return ResponseEntity.ok(GlobalResponseDto.of(ResponseCode.SEJONG_AUTHENTICATION_FAILED));
         } else {
             return ResponseEntity.ok(GlobalResponseDto.of(ResponseCode.SEJONG_AUTHENTICATION,
-                    new AuthResponseDto(authRequestDto.getId())));
+                    AuthResponseDto.of(authRequestDto.getId())));
         }
     }
 
