@@ -29,6 +29,16 @@ public enum ResponseCode {
     CONTENTS_CREATE_SUCCESS(200, "개념추가 성공했습니다."),
     GET_CONTENTS_SUCCESS(200, "개념조회 성공했습니다."),
 
+    PROBLEM_CREATE_SUCCESS(200, "문제추가 성공했습니다."),
+    PROBLEM_GET_SUCCESS(200, "문제조회 성공했습니다."),
+
+    CODE_ACCEPT(200, "정답입니다."),
+    CODE_WRONG_ANSWER(200, "틀렸습니다."),
+    CODE_EXECUTE_ERROR(200, "코드 실행 중 오류가 발생했습니다."),
+    CODE_TIMEOUT(200, "시간초과입니다."),
+    CODE_COMPILE_ERROR(200, "컴파일에 실패하였습니다."),
+
+
     /*============================ FAIL ================================*/
 
     //Global
@@ -42,7 +52,13 @@ public enum ResponseCode {
     USER_ACCOUNT_NOT_EXIST(400,  "계정 정보가 존재하지 않습니다."),
     USER_NOT_FOUND(400, "사용자가 존재하지 않습니다."),
     PASSWORD_MISMATCH(400,  "비밀번호가 일치하지 않습니다."),
-    SEJONG_AUTHENTICATION_FAILED(400, "학생 인증에 실패하였습니다.");
+    SEJONG_AUTHENTICATION_FAILED(400, "학생 인증에 실패하였습니다."),
+
+    //Domain 관련
+    PROBLEM_NOT_FOUND(400, "문제를 찾을 수 없습니다."),
+
+    CODE_EXCEPTION(400, "코드 실행에 실패했습니다.");
+
 
     private final int statusCode;
     private final String message;
