@@ -13,4 +13,7 @@ public class CodeRequestDto {
     @NotBlank(message = "문제 번호를 입력해주세요")
     private Long problemId;
 
+    @NotBlank(message = "언어를 입력해주세요")
+    private String language;
+
 }

@@ -18,10 +18,10 @@ public class CodeController {
     private final CodeService codeService;
 
     // 1. Code 실행 (POST)
-    @PostMapping("/api/code/c")
+    @PostMapping("/api/code")
     public ResponseEntity<GlobalResponseDto> executeCCode(@AuthenticationPrincipal UserDetailsImpl userDetails,
                                                           @RequestBody CodeRequestDto codeRequestDto) {
-        return codeService.executeCCode(userDetails.getMember(), codeRequestDto);
+        return codeService.executeCode(userDetails.getMember(), codeRequestDto);
     }
 
 }
