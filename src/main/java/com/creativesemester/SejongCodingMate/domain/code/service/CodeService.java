@@ -11,6 +11,9 @@ import com.creativesemester.SejongCodingMate.domain.problem.repository.ProblemRe
 import com.creativesemester.SejongCodingMate.global.response.GlobalResponseDto;
 import com.creativesemester.SejongCodingMate.global.response.ResponseCode;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,12 +25,14 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class CodeService {
 
     private final CodeRepository codeRepository;
     private final ProblemRepository problemRepository;
     private final CompilerService compilerService;
 
+    private static final Logger logger = LoggerFactory.getLogger(CodeService.class);
     @Transactional
     public ResponseEntity<GlobalResponseDto> executeCode(Member member, CodeRequestDto codeRequestDto) {
 
@@ -41,6 +46,8 @@ public class CodeService {
         // 2. Run Code
         String code = codeRequestDto.getCode();
         String language = codeRequestDto.getLanguage();
+        logger.debug(code);
+        logger.debug(language);
         Map<String, String> testCases = problem.get().getTestCases();
         Object[] result = null;
 
@@ -48,8 +55,6 @@ public class CodeService {
             result = compilerService.runCCode(code, testCases);
         } else if ("Python".equals(language)) {
             result = compilerService.runPythonCode(code, testCases);
-        } else if ("Java".equals(language)) {
-            result = null;
         }
 
         // 3. Return Result of Run Code
