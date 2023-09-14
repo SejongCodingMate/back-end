@@ -46,8 +46,8 @@ public class CodeService {
         // 2. Run Code
         String code = codeRequestDto.getCode();
         String language = codeRequestDto.getLanguage();
-        logger.debug(code);
-        logger.debug(language);
+        logger.info(code);
+        logger.info(language);
         Map<String, String> testCases = problem.get().getTestCases();
         Object[] result = null;
 
