@@ -124,7 +124,7 @@ public class CompilerService {
                 writer.write(input);
                 writer.close();
 
-                // 34 Execute process then Check Timeout and Error
+                // 4. Execute process then Check Timeout and Error
                 long timeoutInSeconds = 10; // 타임아웃 설정 (초)
                 TimeUnit unit = TimeUnit.SECONDS;
                 if (process.waitFor(timeoutInSeconds, unit)) {
