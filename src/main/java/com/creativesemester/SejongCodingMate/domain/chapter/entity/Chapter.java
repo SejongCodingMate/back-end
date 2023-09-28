@@ -1,7 +1,7 @@
 package com.creativesemester.SejongCodingMate.domain.chapter.entity;
 
 
-import com.creativesemester.SejongCodingMate.domain.course.entity.Course;
+import com.creativesemester.SejongCodingMate.domain.chapter.dto.request.ChapterRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,17 +20,16 @@ public class Chapter {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "COURSE_ID")
-    private Course course;
+    @Column(nullable = false)
+    private Long chapterNumber;
 
     @Column(nullable = false)
-    private String name;
+    private String title;
 
-    public static Chapter of(Course course, String name){
+    public static Chapter of(ChapterRequestDto chapterRequestDto) {
         return Chapter.builder()
-                .course(course)
-                .name(name)
+                .chapterNumber(chapterRequestDto.getChapterNumber())
+                .title(chapterRequestDto.getTitle())
                 .build();
     }
 

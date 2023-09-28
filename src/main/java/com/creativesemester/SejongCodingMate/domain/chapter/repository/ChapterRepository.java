@@ -9,7 +9,4 @@ import java.util.List;
 @Repository
 public interface ChapterRepository extends JpaRepository <Chapter, Long> {
 
-    Chapter findByName(String chapterName);
-    List<Chapter> findByCourseId(Long courseId);
-
 }

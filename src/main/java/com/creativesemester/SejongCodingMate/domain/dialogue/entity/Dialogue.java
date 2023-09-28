@@ -1,0 +1,49 @@
+package com.creativesemester.SejongCodingMate.domain.dialogue.entity;
+
+
+import com.creativesemester.SejongCodingMate.domain.chapter.dto.request.ChapterRequestDto;
+import com.creativesemester.SejongCodingMate.domain.dialogue.dto.request.DialogueRequestDto;
+import com.creativesemester.SejongCodingMate.domain.dialogue.repository.DialogueRepository;
+import com.creativesemester.SejongCodingMate.domain.story.entity.Story;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+
+@Entity
+@Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class Dialogue {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "STORY_ID")
+    private Story story;
+
+    @Column(nullable = false)
+    private String speaker;
+
+    @Column(nullable = false)
+    private String text;
+
+
+    @Column(nullable = false)
+    private Long formatId;
+
+    public static Dialogue of(DialogueRequestDto dialogueRequestDto, Story story) {
+        return Dialogue.builder()
+                .story(story)
+                .speaker(dialogueRequestDto.getSpeaker())
+                .formatId(dialogueRequestDto.getFormatId())
+                .text(dialogueRequestDto.getText())
+                .build();
+    }
+
+}
