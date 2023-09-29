@@ -38,6 +38,9 @@ public enum ResponseCode {
     CODE_TIMEOUT(200, "시간초과입니다."),
     CODE_COMPILE_ERROR(200, "컴파일에 실패하였습니다."),
 
+    QUIZ_CREATE_SUCCESS(200, "퀴즈추가 성공했습니다."),
+    GET_QUIZ_SUCCESS(200, "퀴즈조회 성공했습니다."),
+
 
     /*============================ FAIL ================================*/
 
@@ -57,7 +60,11 @@ public enum ResponseCode {
     //Domain 관련
     PROBLEM_NOT_FOUND(400, "문제를 찾을 수 없습니다."),
 
-    CODE_EXCEPTION(400, "코드 실행에 실패했습니다.");
+    CODE_EXCEPTION(400, "코드 실행에 실패했습니다."),
+
+    STORY_NOT_FOUND(400, "스토리를 찾을 수 없습니다."),
+
+    QUIZ_NOT_FOUND(400, "퀴즈를 찾을 수 없습니다.");
 
 
     private final int statusCode;
