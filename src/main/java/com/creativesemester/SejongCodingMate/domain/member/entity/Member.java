@@ -1,6 +1,7 @@
 package com.creativesemester.SejongCodingMate.domain.member.entity;
 
 
+import com.creativesemester.SejongCodingMate.domain.story.entity.Story;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,21 +20,24 @@ public class Member {
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Long id;
 
-   @Column(unique = true)
-   private String studentId;
+   @OneToOne
+   @JoinColumn(name = "STORY_ID")
+   private Story story;
 
+   @Column(unique = true, nullable = false)
+   private String memberId;
+
+   @Column(nullable = false)
    private String password;
-   private String major;
-   private String grade;
+
+   private String name;
 
 
-
-   public static Member of(String studentId, String password, String major, String grade){
+   public static Member of (String memberId, String password, Story story){
       return Member.builder()
-              .studentId(studentId)
+              .memberId(memberId)
               .password(password)
-              .major(major)
-              .grade(grade)
+              .story(story)
               .build();
    }
 
@@ -41,4 +45,7 @@ public class Member {
       this.password = newPassword;
    }
 
+   public void changeName(String newName) {
+      this.name = newName;
+   }
 }
