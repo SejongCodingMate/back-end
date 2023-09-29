@@ -43,6 +43,7 @@ public class Story {
                 .previousId(storyRequestDto.getPreviousId())
                 .formatId(storyRequestDto.getFormatId())
                 .chapter(chapter)
+                .content(storyRequestDto.getContent())
                 .build();
     }
 }
