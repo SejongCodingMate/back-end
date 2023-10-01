@@ -24,16 +24,24 @@ public class DialogueService {
     private final StoryRepository storyRepository;
     private final DialogueRepository dialogueRepository;
 
-    // 1. Chapter 생성 (POST)
+    // 1. 대화 생성 (POST)
     @Transactional
     public ResponseEntity<GlobalResponseDto> createDialogue(Member member, DialogueRequestDto dialogueRequestDto) {
 
-        Optional <Story> story = storyRepository.findById(dialogueRequestDto.getDialogueId());
+        Optional <Story> story = storyRepository.findById(dialogueRequestDto.getStoryId());
+
+        if (story.isEmpty()) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(GlobalResponseDto.of(ResponseCode.STORY_NOT_FOUND));
+        }
+
         dialogueRepository.save(Dialogue.of(dialogueRequestDto,story.get()));
+
         return ResponseEntity.ok(GlobalResponseDto.of(ResponseCode.CHAPTER_CREATE_SUCCESS));
     }
 
-    // 2. Chapter 조회 (GET)
+    // 2. 대화 조회 (GET)
     @Transactional
     public ResponseEntity<GlobalResponseDto> getDialogue(Member member, Long id) {
 

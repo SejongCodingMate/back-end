@@ -2,6 +2,11 @@ package com.creativesemester.SejongCodingMate.domain.story.service;
 
 import com.creativesemester.SejongCodingMate.domain.chapter.entity.Chapter;
 import com.creativesemester.SejongCodingMate.domain.chapter.repository.ChapterRepository;
+import com.creativesemester.SejongCodingMate.domain.dialogue.entity.Dialogue;
+import com.creativesemester.SejongCodingMate.domain.dialogue.repository.DialogueRepository;
+import com.creativesemester.SejongCodingMate.domain.dialogue.service.DialogueService;
+import com.creativesemester.SejongCodingMate.domain.quiz.entity.Quiz;
+import com.creativesemester.SejongCodingMate.domain.quiz.repository.QuizRepository;
 import com.creativesemester.SejongCodingMate.domain.story.dto.request.StoryRequestDto;
 import com.creativesemester.SejongCodingMate.domain.story.entity.Story;
 import com.creativesemester.SejongCodingMate.domain.story.repository.StoryRepository;
@@ -9,6 +14,7 @@ import com.creativesemester.SejongCodingMate.domain.member.entity.Member;
 import com.creativesemester.SejongCodingMate.global.response.GlobalResponseDto;
 import com.creativesemester.SejongCodingMate.global.response.ResponseCode;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,8 +26,12 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class StoryService {
     private final StoryRepository storyRepository;
+    private final QuizRepository quizRepository;
     private final ChapterRepository chapterRepository;
+    private final DialogueRepository dialogueRepository;
 
+
+    // 1. Story 등록 (POST)
     @Transactional
     public ResponseEntity<GlobalResponseDto> createStory(Member member, StoryRequestDto storyRequestDto) {
 
@@ -30,11 +40,45 @@ public class StoryService {
         return ResponseEntity.ok(GlobalResponseDto.of(ResponseCode.LOG_IN_SUCCESS));
     }
 
+    // 2. Story 전체 조회 (GET)
     @Transactional(readOnly = true)
-    public ResponseEntity<GlobalResponseDto> getStory(Member member) {
+    public ResponseEntity<GlobalResponseDto> getStoryList(Member member) {
 
         List<Story> story = storyRepository.findAll();
         return ResponseEntity.ok(GlobalResponseDto.of(ResponseCode.GET_COURSE_SUCCESS, story));
     }
 
+    // 3. Story 단일 조회 (GET)
+    @Transactional(readOnly = true)
+    public ResponseEntity<GlobalResponseDto> getStory(Member member, Long id) {
+
+        Optional<Story> story = storyRepository.findById(id);
+
+        if (story.isEmpty()) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(GlobalResponseDto.of(ResponseCode.STORY_NOT_FOUND));
+        }
+
+
+        Long formatId = story.get().getFormatId();
+
+        if (formatId == 1L) {
+            List<Dialogue> dialogueList = dialogueRepository.findByStoryId(id);
+
+            return ResponseEntity.ok(GlobalResponseDto.of(ResponseCode.GET_COURSE_SUCCESS, dialogueList));
+        }
+
+        if (formatId == 2L) {
+            List<Quiz> quizList = quizRepository.findByStoryId(id);
+            return ResponseEntity.ok(GlobalResponseDto.of(ResponseCode.GET_COURSE_SUCCESS, quizList));
+        }
+
+        if (formatId == 3L) {
+        }
+
+        return ResponseEntity
+                .badRequest()
+                .body(GlobalResponseDto.of(ResponseCode.STORY_NOT_FOUND));
+    }
 }

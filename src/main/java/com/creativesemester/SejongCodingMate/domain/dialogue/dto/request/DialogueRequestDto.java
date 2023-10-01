@@ -8,13 +8,10 @@ import javax.validation.constraints.NotBlank;
 public class DialogueRequestDto {
 
     @NotBlank()
+    private Long storyId;
+    @NotBlank()
     private String speaker;
     @NotBlank()
     private String text;
-    @NotBlank()
-    private Long formatId;
-
-    @NotBlank()
-    private Long dialogueId;
 
 }

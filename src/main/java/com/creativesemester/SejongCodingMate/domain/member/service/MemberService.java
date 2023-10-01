@@ -43,6 +43,7 @@ public class MemberService {
         if (story.isEmpty()) {
             return ResponseEntity.ok(GlobalResponseDto.of(ResponseCode.STORY_NOT_FOUND));
         }
+
         String encodedPassword = passwordEncoder.encode(memberRequestDto.getPassword());
         memberRepository.save(Member.of(memberRequestDto.getMemberId(), encodedPassword, story.get()));
         return ResponseEntity.ok(GlobalResponseDto.of(ResponseCode.SIGN_UP_SUCCESS));

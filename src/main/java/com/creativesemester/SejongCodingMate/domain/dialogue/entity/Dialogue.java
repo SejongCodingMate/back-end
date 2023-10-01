@@ -33,15 +33,10 @@ public class Dialogue {
     @Column(nullable = false)
     private String text;
 
-
-    @Column(nullable = false)
-    private Long formatId;
-
     public static Dialogue of(DialogueRequestDto dialogueRequestDto, Story story) {
         return Dialogue.builder()
                 .story(story)
                 .speaker(dialogueRequestDto.getSpeaker())
-                .formatId(dialogueRequestDto.getFormatId())
                 .text(dialogueRequestDto.getText())
                 .build();
     }

@@ -21,9 +21,15 @@ public class StoryController {
         return storyService.createStory(userDetails.getMember(), storyRequestDto);
     }
 
-    // 2. 스토리 조회 (GET)
+    // 2. 스토리 전체 조회 (GET)
     @GetMapping("/api/story")
-    public ResponseEntity<GlobalResponseDto> getStory (@AuthenticationPrincipal UserDetailsImpl userDetails){
-        return storyService.getStory(userDetails.getMember());
+    public ResponseEntity<GlobalResponseDto> getStoryList (@AuthenticationPrincipal UserDetailsImpl userDetails){
+        return storyService.getStoryList(userDetails.getMember());
+    }
+
+    // 3. 스토리 단일 조회 (GET)
+    @GetMapping("/api/story/{id}")
+    public ResponseEntity<GlobalResponseDto> getStory (@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable Long id){
+        return storyService.getStory(userDetails.getMember(),id);
     }
 }

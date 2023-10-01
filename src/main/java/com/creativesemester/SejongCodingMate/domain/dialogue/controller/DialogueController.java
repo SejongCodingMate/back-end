@@ -15,14 +15,14 @@ public class DialogueController {
 
     private final DialogueService dialogueService;
 
-    // 1. Dialogue 생성 (POST)
+    // 1. 대화 생성 (POST)
     @PostMapping("/api/dialogue")
     public ResponseEntity<GlobalResponseDto> createDialogue (@AuthenticationPrincipal UserDetailsImpl userDetails,
                                                              @RequestBody DialogueRequestDto dialogueRequestDto){
         return dialogueService.createDialogue(userDetails.getMember(), dialogueRequestDto);
     }
 
-    // 2. Dialogue 조회 (GET)
+    // 2. 대화 단일 조회 (GET)
     @GetMapping("/api/dialogue/{id}")
     public ResponseEntity<GlobalResponseDto> getDialogue (@AuthenticationPrincipal UserDetailsImpl userDetails,
                                                           @PathVariable Long id){
