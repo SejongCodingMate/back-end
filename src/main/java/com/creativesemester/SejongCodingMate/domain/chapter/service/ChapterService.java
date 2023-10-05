@@ -3,11 +3,11 @@ package com.creativesemester.SejongCodingMate.domain.chapter.service;
 import com.creativesemester.SejongCodingMate.domain.chapter.dto.request.ChapterRequestDto;
 import com.creativesemester.SejongCodingMate.domain.chapter.entity.Chapter;
 import com.creativesemester.SejongCodingMate.domain.chapter.repository.ChapterRepository;
-import com.creativesemester.SejongCodingMate.domain.dialogue.dto.request.DialogueRequestDto;
 import com.creativesemester.SejongCodingMate.domain.story.repository.StoryRepository;
 import com.creativesemester.SejongCodingMate.domain.member.entity.Member;
 import com.creativesemester.SejongCodingMate.global.response.GlobalResponseDto;
-import com.creativesemester.SejongCodingMate.global.response.ResponseCode;
+import com.creativesemester.SejongCodingMate.global.response.ErrorType;
+import com.creativesemester.SejongCodingMate.global.response.SuccessType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ public class ChapterService {
     public ResponseEntity<GlobalResponseDto> createChapter(Member member, ChapterRequestDto chapterRequestDto) {
 
         chapterRepository.save(Chapter.of(chapterRequestDto));
-        return ResponseEntity.ok(GlobalResponseDto.of(ResponseCode.CHAPTER_CREATE_SUCCESS));
+        return ResponseEntity.ok(GlobalResponseDto.of(SuccessType.CHAPTER_CREATE_SUCCESS));
     }
 
     // 2. Chapter 조회 (GET)
@@ -35,10 +35,10 @@ public class ChapterService {
 
         Optional<Chapter> chapter = chapterRepository.findById(id);
         if (chapter.isEmpty()) {
-            return ResponseEntity.ok(GlobalResponseDto.of(ResponseCode.NOT_VALID_REQUEST));
+            return ResponseEntity.ok(GlobalResponseDto.of(ErrorType.NOT_VALID_REQUEST));
         }
 
-        return ResponseEntity.ok(GlobalResponseDto.of(ResponseCode.GET_CHAPTER_SUCCESS, chapter));
+        return ResponseEntity.ok(GlobalResponseDto.of(SuccessType.GET_CHAPTER_SUCCESS, chapter));
 
     }
 

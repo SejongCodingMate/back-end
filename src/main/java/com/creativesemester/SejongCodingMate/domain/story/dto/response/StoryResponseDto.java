@@ -12,13 +12,12 @@ import java.util.List;
 public class StoryResponseDto {
     private Long id;
     private Long nextStoryId;
-    private List<QuizDto> quizDtoList;
+
 
     public static StoryResponseDto of(Story story, List<QuizDto> quizDtoList) {
         return StoryResponseDto.builder()
                 .id(story.getId())
                 .nextStoryId(story.getNextId())
-                .quizDtoList(quizDtoList)
                 .build();
     }
 }

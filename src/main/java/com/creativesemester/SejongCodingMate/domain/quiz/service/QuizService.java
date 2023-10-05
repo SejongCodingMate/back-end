@@ -9,7 +9,8 @@ import com.creativesemester.SejongCodingMate.domain.quiz.repository.QuizReposito
 import com.creativesemester.SejongCodingMate.domain.story.entity.Story;
 import com.creativesemester.SejongCodingMate.domain.story.repository.StoryRepository;
 import com.creativesemester.SejongCodingMate.global.response.GlobalResponseDto;
-import com.creativesemester.SejongCodingMate.global.response.ResponseCode;
+import com.creativesemester.SejongCodingMate.global.response.ErrorType;
+import com.creativesemester.SejongCodingMate.global.response.SuccessType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -32,10 +33,10 @@ public class QuizService {
 
         Optional<Story> story = storyRepository.findById(quizRequestDto.getStoryId());
         if (story.isEmpty()) {
-            return ResponseEntity.ok(GlobalResponseDto.of(ResponseCode.STORY_NOT_FOUND));
+            return ResponseEntity.ok(GlobalResponseDto.of(ErrorType.STORY_NOT_FOUND));
         }
         quizRepository.save(Quiz.of(quizRequestDto, story.get()));
-        return ResponseEntity.ok(GlobalResponseDto.of(ResponseCode.QUIZ_CREATE_SUCCESS));
+        return ResponseEntity.ok(GlobalResponseDto.of(SuccessType.QUIZ_CREATE_SUCCESS));
     }
 
     // 2.Quiz 조회
@@ -43,12 +44,12 @@ public class QuizService {
     public ResponseEntity<GlobalResponseDto> getQuiz(Member member, Long id) {
         Optional<Story> story = storyRepository.findById(id);
         if (story.isEmpty()) {
-            return ResponseEntity.ok(GlobalResponseDto.of(ResponseCode.STORY_NOT_FOUND));
+            return ResponseEntity.ok(GlobalResponseDto.of(ErrorType.STORY_NOT_FOUND));
         }
 
         List<Quiz> quizList = quizRepository.findByStory(story.get());
         if (quizList.isEmpty()) {
-            return ResponseEntity.ok(GlobalResponseDto.of(ResponseCode.QUIZ_NOT_FOUND));
+            return ResponseEntity.ok(GlobalResponseDto.of(ErrorType.QUIZ_NOT_FOUND));
         }
 
         quizList.sort((q1, q2) -> (int) (q1.getQuizId() - q2.getQuizId()));
@@ -57,7 +58,7 @@ public class QuizService {
             quizDtoList.add(QuizDto.of(q));
         }
 
-        return ResponseEntity.ok(GlobalResponseDto.of(ResponseCode.GET_QUIZ_SUCCESS,
+        return ResponseEntity.ok(GlobalResponseDto.of(SuccessType.GET_QUIZ_SUCCESS,
                 QuizResponseDto.of(story.get(), quizDtoList)));
 
     }

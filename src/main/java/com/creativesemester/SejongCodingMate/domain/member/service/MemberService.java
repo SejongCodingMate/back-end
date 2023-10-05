@@ -9,7 +9,8 @@ import com.creativesemester.SejongCodingMate.global.jwt.TokenDto;
 import com.creativesemester.SejongCodingMate.domain.member.entity.Member;
 import com.creativesemester.SejongCodingMate.domain.member.repository.MemberRepository;
 import com.creativesemester.SejongCodingMate.global.response.GlobalResponseDto;
-import com.creativesemester.SejongCodingMate.global.response.ResponseCode;
+import com.creativesemester.SejongCodingMate.global.response.ErrorType;
+import com.creativesemester.SejongCodingMate.global.response.SuccessType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -35,18 +36,18 @@ public class MemberService {
         Optional<Member> member = memberRepository.findByMemberId(memberRequestDto.getMemberId());
 
         if (member.isPresent()) {
-            return ResponseEntity.ok(GlobalResponseDto.of(ResponseCode.USER_EXIST));
+            return ResponseEntity.ok(GlobalResponseDto.of(ErrorType.USER_EXIST));
         }
 
         Optional<Story> story = storyRepository.findById(1L);
 
         if (story.isEmpty()) {
-            return ResponseEntity.ok(GlobalResponseDto.of(ResponseCode.STORY_NOT_FOUND));
+            return ResponseEntity.ok(GlobalResponseDto.of(ErrorType.STORY_NOT_FOUND));
         }
 
         String encodedPassword = passwordEncoder.encode(memberRequestDto.getPassword());
         memberRepository.save(Member.of(memberRequestDto.getMemberId(), encodedPassword, story.get()));
-        return ResponseEntity.ok(GlobalResponseDto.of(ResponseCode.SIGN_UP_SUCCESS));
+        return ResponseEntity.ok(GlobalResponseDto.of(SuccessType.SIGN_UP_SUCCESS));
     }
 
     public ResponseEntity<GlobalResponseDto> login(MemberRequestDto memberRequestDto, HttpServletResponse response) {
@@ -54,17 +55,17 @@ public class MemberService {
         Optional<Member> member = memberRepository.findByMemberId(memberRequestDto.getMemberId());
 
         if (member.isEmpty()) {
-            return ResponseEntity.ok(GlobalResponseDto.of(ResponseCode.USER_NOT_FOUND));
+            return ResponseEntity.ok(GlobalResponseDto.of(ErrorType.USER_NOT_FOUND));
         }
 
         if (!passwordEncoder.matches(memberRequestDto.getPassword(), member.get().getPassword())) {
-            return ResponseEntity.ok(GlobalResponseDto.of(ResponseCode.PASSWORD_MISMATCH));
+            return ResponseEntity.ok(GlobalResponseDto.of(ErrorType.PASSWORD_MISMATCH));
         }
 
         TokenDto tokenDto = new TokenDto(jwtUtil.createToken(memberRequestDto.getMemberId()));
         response.addHeader(JwtUtil.AUTHORIZATION_HEADER, tokenDto.getAccessToken());
 
-        return ResponseEntity.ok(GlobalResponseDto.of(ResponseCode.LOG_IN_SUCCESS));
+        return ResponseEntity.ok(GlobalResponseDto.of(SuccessType.LOG_IN_SUCCESS));
     }
 
     @Transactional
@@ -73,13 +74,13 @@ public class MemberService {
         Optional<Member> member = memberRepository.findByMemberId(memberRequestDto.getMemberId());
 
         if (member.isEmpty()) {
-            return ResponseEntity.ok(GlobalResponseDto.of(ResponseCode.USER_NOT_FOUND));
+            return ResponseEntity.ok(GlobalResponseDto.of(ErrorType.USER_NOT_FOUND));
         }
 
         String encodedPassword = passwordEncoder.encode(memberRequestDto.getPassword());
         member.get().changePassword(encodedPassword);
         memberRepository.save(member.get());
 
-        return ResponseEntity.ok(GlobalResponseDto.of(ResponseCode.CHANGE_PASSWORD));
+        return ResponseEntity.ok(GlobalResponseDto.of(SuccessType.CHANGE_PASSWORD));
     }
 }
