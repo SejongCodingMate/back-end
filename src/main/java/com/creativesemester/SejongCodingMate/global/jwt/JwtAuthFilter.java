@@ -1,7 +1,6 @@
 package com.creativesemester.SejongCodingMate.global.jwt;
 
-import com.creativesemester.SejongCodingMate.global.jwt.JwtUtil;
-import com.creativesemester.SejongCodingMate.global.response.ResponseCode;
+import com.creativesemester.SejongCodingMate.global.response.ErrorType;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,13 +28,13 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         String token = jwtUtil.resolveToken(request);
 
         if (token == null) {
-            request.setAttribute("exception", ResponseCode.TOKEN_NOT_FOUND);
+            request.setAttribute("exception", ErrorType.TOKEN_NOT_FOUND);
             filterChain.doFilter(request, response);
             return;
         }
 
         if (!jwtUtil.validateToken(token)) {
-            request.setAttribute("exception", ResponseCode.NOT_VALID_TOKEN);
+            request.setAttribute("exception", ErrorType.NOT_VALID_TOKEN);
             filterChain.doFilter(request, response);
             return;
         }
@@ -45,7 +44,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         try {
             setAuthentication(info.getSubject());
         } catch (UsernameNotFoundException e) {
-            request.setAttribute("exception", ResponseCode.USER_NOT_FOUND);
+            request.setAttribute("exception", ErrorType.USER_NOT_FOUND);
         }
 
         filterChain.doFilter(request, response);
