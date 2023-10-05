@@ -4,12 +4,15 @@ import com.creativesemester.SejongCodingMate.domain.chapter.entity.Chapter;
 import com.creativesemester.SejongCodingMate.domain.chapter.repository.ChapterRepository;
 import com.creativesemester.SejongCodingMate.domain.dialogue.entity.Dialogue;
 import com.creativesemester.SejongCodingMate.domain.dialogue.repository.DialogueRepository;
+import com.creativesemester.SejongCodingMate.domain.member.repository.MemberRepository;
 import com.creativesemester.SejongCodingMate.domain.quiz.entity.Quiz;
 import com.creativesemester.SejongCodingMate.domain.quiz.repository.QuizRepository;
+import com.creativesemester.SejongCodingMate.domain.story.dto.request.SaveRequestDto;
 import com.creativesemester.SejongCodingMate.domain.story.dto.request.StoryRequestDto;
 import com.creativesemester.SejongCodingMate.domain.story.entity.Story;
 import com.creativesemester.SejongCodingMate.domain.story.repository.StoryRepository;
 import com.creativesemester.SejongCodingMate.domain.member.entity.Member;
+import com.creativesemester.SejongCodingMate.global.exception.exceptionType.StoryException;
 import com.creativesemester.SejongCodingMate.global.response.GlobalResponseDto;
 import com.creativesemester.SejongCodingMate.global.response.ErrorType;
 import com.creativesemester.SejongCodingMate.global.response.SuccessType;
@@ -26,6 +29,7 @@ import java.util.Optional;
 public class StoryService {
     private final StoryRepository storyRepository;
     private final QuizRepository quizRepository;
+    private final MemberRepository memberRepository;
     private final ChapterRepository chapterRepository;
     private final DialogueRepository dialogueRepository;
 
@@ -79,5 +83,19 @@ public class StoryService {
         return ResponseEntity
                 .badRequest()
                 .body(GlobalResponseDto.of(ErrorType.STORY_NOT_FOUND));
+    }
+
+    public ResponseEntity<GlobalResponseDto> saveStory(Member member, SaveRequestDto saveRequestDto) {
+
+        Optional<Story> story = storyRepository.findById(saveRequestDto.getNextStoryId());
+
+        if(story.isEmpty()){
+            throw new StoryException(ErrorType.USER_NOT_FOUND);
+        }
+
+        member.changeStory(story.get());
+        memberRepository.save(member);
+
+        return ResponseEntity.ok(GlobalResponseDto.of(SuccessType.LOG_IN_SUCCESS));
     }
 }

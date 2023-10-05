@@ -48,4 +48,8 @@ public class Member {
    public void changeName(String newName) {
       this.name = newName;
    }
+
+   public void changeStory(Story story){
+      this.story = story;
+   }
 }
