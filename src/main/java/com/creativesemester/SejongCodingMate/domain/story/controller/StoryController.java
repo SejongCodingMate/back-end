@@ -35,7 +35,7 @@ public class StoryController {
     }
 
     // 4. 스토리 저장 (POST)
-    @GetMapping("/api/story/save")
+    @PostMapping("/api/story/save")
     public ResponseEntity<GlobalResponseDto> saveStory (@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestBody SaveRequestDto saveRequestDto){
         return storyService.saveStory(userDetails.getMember(), saveRequestDto);
     }
