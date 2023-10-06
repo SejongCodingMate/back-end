@@ -65,7 +65,7 @@ public class MemberService {
         TokenDto tokenDto = new TokenDto(jwtUtil.createToken(memberRequestDto.getMemberId()));
         response.addHeader(JwtUtil.AUTHORIZATION_HEADER, tokenDto.getAccessToken());
 
-        return ResponseEntity.ok(GlobalResponseDto.of(SuccessType.LOG_IN_SUCCESS));
+        return ResponseEntity.ok(GlobalResponseDto.of(SuccessType.LOG_IN_SUCCESS,member.get().getStory().getId()));
     }
 
     @Transactional
