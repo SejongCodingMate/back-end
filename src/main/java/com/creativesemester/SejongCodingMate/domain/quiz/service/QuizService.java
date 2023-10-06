@@ -40,7 +40,7 @@ public class QuizService {
     }
 
     // 2.Quiz 조회
-    @Transactional
+    @Transactional(readOnly = true)
     public ResponseEntity<GlobalResponseDto> getQuiz(Member member, Long id) {
         Optional<Story> story = storyRepository.findById(id);
         if (story.isEmpty()) {

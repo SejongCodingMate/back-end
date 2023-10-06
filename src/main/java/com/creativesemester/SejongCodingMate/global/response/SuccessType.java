@@ -38,7 +38,10 @@ public enum SuccessType {
     CODE_COMPILE_ERROR(200, "컴파일에 실패하였습니다."),
 
     QUIZ_CREATE_SUCCESS(200, "퀴즈추가 성공했습니다."),
-    GET_QUIZ_SUCCESS(200, "퀴즈조회 성공했습니다.");
+    GET_QUIZ_SUCCESS(200, "퀴즈조회 성공했습니다."),
+
+    CODE_CREATE_SUCCESS(200, "코드추가 성공했습니다."),
+    GET_CODE_SUCCESS(200, "코드조회 성공했습니다.");
 
 
 

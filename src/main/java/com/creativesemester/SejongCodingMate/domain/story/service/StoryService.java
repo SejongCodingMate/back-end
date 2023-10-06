@@ -2,6 +2,8 @@ package com.creativesemester.SejongCodingMate.domain.story.service;
 
 import com.creativesemester.SejongCodingMate.domain.chapter.entity.Chapter;
 import com.creativesemester.SejongCodingMate.domain.chapter.repository.ChapterRepository;
+import com.creativesemester.SejongCodingMate.domain.code.entity.Code;
+import com.creativesemester.SejongCodingMate.domain.code.repository.CodeRepository;
 import com.creativesemester.SejongCodingMate.domain.dialogue.entity.Dialogue;
 import com.creativesemester.SejongCodingMate.domain.dialogue.repository.DialogueRepository;
 import com.creativesemester.SejongCodingMate.domain.quiz.entity.Quiz;
@@ -18,16 +20,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class StoryService {
+
     private final StoryRepository storyRepository;
     private final QuizRepository quizRepository;
     private final ChapterRepository chapterRepository;
     private final DialogueRepository dialogueRepository;
+    private final CodeRepository codeRepository;
 
 
     // 1. Story 등록 (POST)
@@ -74,6 +79,17 @@ public class StoryService {
         }
 
         if (formatId == 3L) {
+            Optional<Code> code = codeRepository.findByStoryId(id);
+            List<Dialogue> dialogueList = dialogueRepository.findByStoryId(id);
+
+            List<Object> codeList = new ArrayList<>();
+
+            codeList.add(code);
+            for (Dialogue d : dialogueList) {
+                codeList.add(d);
+            }
+            return ResponseEntity.ok(GlobalResponseDto.of(SuccessType.GET_CODE_SUCCESS, codeList));
+
         }
 
         return ResponseEntity
