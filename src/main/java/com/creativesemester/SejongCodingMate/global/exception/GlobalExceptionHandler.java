@@ -59,6 +59,15 @@ public class GlobalExceptionHandler {
                 .body(GlobalResponseDto.of(errorType));
     }
 
+    // CodeException
+    @ExceptionHandler(CodeException.class)
+    public ResponseEntity<GlobalResponseDto> handleAccessException(CodeException e) {
+        ErrorType errorType = e.getStatusCode();
+        log.error(errorType.getMessage());
+        return ResponseEntity.badRequest()
+                .body(GlobalResponseDto.of(errorType));
+    }
+
     // GlobalException Handler
     @ExceptionHandler(GlobalException.class)
     public ResponseEntity<GlobalResponseDto> handleGlobalException(GlobalException e) {
