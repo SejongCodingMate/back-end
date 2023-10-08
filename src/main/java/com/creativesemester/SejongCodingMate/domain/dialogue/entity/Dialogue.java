@@ -1,9 +1,7 @@
 package com.creativesemester.SejongCodingMate.domain.dialogue.entity;
 
 
-import com.creativesemester.SejongCodingMate.domain.chapter.dto.request.ChapterRequestDto;
 import com.creativesemester.SejongCodingMate.domain.dialogue.dto.request.DialogueRequestDto;
-import com.creativesemester.SejongCodingMate.domain.dialogue.repository.DialogueRepository;
 import com.creativesemester.SejongCodingMate.domain.story.entity.Story;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,11 +31,15 @@ public class Dialogue {
     @Column(nullable = false)
     private String text;
 
+    @Column(nullable = false)
+    private Long flag;
+
     public static Dialogue of(DialogueRequestDto dialogueRequestDto, Story story) {
         return Dialogue.builder()
                 .story(story)
                 .speaker(dialogueRequestDto.getSpeaker())
                 .text(dialogueRequestDto.getText())
+                .flag(dialogueRequestDto.getFlag())
                 .build();
     }
 
