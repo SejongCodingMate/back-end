@@ -30,14 +30,18 @@ public class Member {
    @Column(nullable = false)
    private String password;
 
+   @Column(nullable = false)
+   private Boolean hasTemporaryPassword;
+
    private String name;
 
 
-   public static Member of (String memberId, String password, Story story){
+   public static Member of (String memberId, String password, Story story, Boolean hasTemporaryPassword){
       return Member.builder()
               .memberId(memberId)
               .password(password)
               .story(story)
+              .hasTemporaryPassword(hasTemporaryPassword)
               .build();
    }
 
@@ -51,5 +55,9 @@ public class Member {
 
    public void changeStory(Story story){
       this.story = story;
+   }
+
+   public void changeHasTemporaryPassword(Boolean hasTemporaryPassword){
+      this.hasTemporaryPassword = hasTemporaryPassword;
    }
 }

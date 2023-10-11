@@ -28,6 +28,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 	// Mysql 관련 의존성 제공
 	implementation 'mysql:mysql-connector-java:8.0.33'
+	// JavaMail 의존성 제공
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	// boilerplate 코드를 줄여주는 Lombok 라이브러리 제공
 	compileOnly 'org.projectlombok:lombok'
 	// 런타임 시 MySQL 드라이버 제공

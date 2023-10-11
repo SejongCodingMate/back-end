@@ -1,6 +1,7 @@
 package com.creativesemester.SejongCodingMate.domain.member.controller;
 
 
+import com.creativesemester.SejongCodingMate.domain.member.dto.request.MemberIdRequestDto;
 import com.creativesemester.SejongCodingMate.domain.member.dto.request.MemberRequestDto;
 import com.creativesemester.SejongCodingMate.domain.member.service.MemberService;
 import com.creativesemester.SejongCodingMate.global.response.GlobalResponseDto;
@@ -24,7 +25,8 @@ public class MemberController {
     }
 
     @PostMapping("/api/member/login")
-    public ResponseEntity <GlobalResponseDto> login (@RequestBody @Valid MemberRequestDto memberRequestDto, HttpServletResponse response){
+    public ResponseEntity <GlobalResponseDto> login (@RequestBody @Valid MemberRequestDto memberRequestDto,
+                                                     HttpServletResponse response){
         return memberService.login(memberRequestDto,response);
     }
 
@@ -36,5 +38,10 @@ public class MemberController {
     @GetMapping("/api/member/{memberId}")
     public ResponseEntity <GlobalResponseDto> isExistMember (@PathVariable String memberId) {
         return memberService.isExistMember(memberId);
+    }
+
+    @PatchMapping("/api/member/temporary")
+    public ResponseEntity <GlobalResponseDto> sendPasswordEmail(@RequestBody @Valid MemberIdRequestDto memberIdRequestDto) {
+        return memberService.sendPasswordEmail(memberIdRequestDto);
     }
 }
