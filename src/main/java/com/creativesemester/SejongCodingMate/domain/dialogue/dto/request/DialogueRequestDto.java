@@ -13,5 +13,8 @@ public class DialogueRequestDto {
     private String speaker;
     @NotBlank()
     private String text;
-
+    @NotBlank()
+    private Long soundEffect;
+    @NotBlank()
+    private Long screenEffect;
 }
