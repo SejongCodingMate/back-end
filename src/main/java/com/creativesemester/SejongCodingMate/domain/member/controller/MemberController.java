@@ -6,10 +6,7 @@ import com.creativesemester.SejongCodingMate.domain.member.service.MemberService
 import com.creativesemester.SejongCodingMate.global.response.GlobalResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -34,5 +31,10 @@ public class MemberController {
     @PatchMapping("/api/member/password")
     public ResponseEntity <GlobalResponseDto> changePassword (@RequestBody @Valid MemberRequestDto memberRequestDto) {
         return memberService.changePassword(memberRequestDto);
+    }
+
+    @GetMapping("/api/member/{memberId}")
+    public ResponseEntity <GlobalResponseDto> isExistMember (@PathVariable String memberId) {
+        return memberService.isExistMember(memberId);
     }
 }

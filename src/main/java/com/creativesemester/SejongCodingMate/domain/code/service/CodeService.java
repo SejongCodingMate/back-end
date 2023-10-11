@@ -5,6 +5,7 @@ import com.creativesemester.SejongCodingMate.domain.code.dto.request.CodeRequest
 import com.creativesemester.SejongCodingMate.domain.code.entity.Code;
 import com.creativesemester.SejongCodingMate.domain.code.repository.CodeRepository;
 import com.creativesemester.SejongCodingMate.domain.member.entity.Member;
+import com.creativesemester.SejongCodingMate.domain.member.repository.MemberRepository;
 import com.creativesemester.SejongCodingMate.domain.story.entity.Story;
 import com.creativesemester.SejongCodingMate.domain.story.repository.StoryRepository;
 import com.creativesemester.SejongCodingMate.global.response.ErrorType;
@@ -24,6 +25,7 @@ public class CodeService {
     private final StoryRepository storyRepository;
     private final CodeRepository codeRepository;
     private final CompilerService compilerService;
+    private final MemberRepository memberRepository;
 
     // 1. Code 생성
     @Transactional
@@ -90,7 +92,8 @@ public class CodeService {
 
         // 이름 변경 코드에 대해서 수행
         if (codeExecuteRequestDto.getStoryId() == 4) {
-            member.changeName(output);
+            member.changeName(input);
+            memberRepository.save(member);
         }
         return ResponseEntity.ok(GlobalResponseDto.of(successType, output));
     }

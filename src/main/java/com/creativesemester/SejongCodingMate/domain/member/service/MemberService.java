@@ -74,7 +74,9 @@ public class MemberService {
         Optional<Member> member = memberRepository.findByMemberId(memberRequestDto.getMemberId());
 
         if (member.isEmpty()) {
-            return ResponseEntity.ok(GlobalResponseDto.of(ErrorType.USER_NOT_FOUND));
+            return ResponseEntity
+                    .badRequest()
+                    .body(GlobalResponseDto.of(ErrorType.USER_NOT_FOUND));
         }
 
         String encodedPassword = passwordEncoder.encode(memberRequestDto.getPassword());
@@ -82,5 +84,18 @@ public class MemberService {
         memberRepository.save(member.get());
 
         return ResponseEntity.ok(GlobalResponseDto.of(SuccessType.CHANGE_PASSWORD));
+    }
+
+    public ResponseEntity<GlobalResponseDto> isExistMember(String memberId) {
+
+        Optional<Member> member = memberRepository.findByMemberId(memberId);
+
+        if (member.isEmpty()) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(GlobalResponseDto.of(ErrorType.USER_NOT_FOUND, false));
+        }
+
+        return ResponseEntity.ok(GlobalResponseDto.of(SuccessType.USER_EXIST, true));
     }
 }
