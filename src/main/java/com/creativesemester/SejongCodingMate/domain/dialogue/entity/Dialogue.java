@@ -33,11 +33,19 @@ public class Dialogue {
     @Column(nullable = false)
     private String text;
 
+    @Column(nullable = false)
+    private Long screenEffect;
+
+    @Column(nullable = false)
+    private Long soundEffect;
+
     public static Dialogue of(DialogueRequestDto dialogueRequestDto, Story story) {
         return Dialogue.builder()
                 .story(story)
                 .speaker(dialogueRequestDto.getSpeaker())
                 .text(dialogueRequestDto.getText())
+                .screenEffect(dialogueRequestDto.getScreenEffect())
+                .soundEffect(dialogueRequestDto.getSoundEffect())
                 .build();
     }
 
