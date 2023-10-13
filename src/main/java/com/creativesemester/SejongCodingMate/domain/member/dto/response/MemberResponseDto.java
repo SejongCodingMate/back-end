@@ -9,10 +9,14 @@ public class MemberResponseDto {
 
     private Long storyId;
     private Boolean hasTemporaryPassword;
-    public static MemberResponseDto of(Long storyId, Boolean hasTemporaryPasswordt) {
+    private String name;
+
+
+    public static MemberResponseDto of(Long storyId, Boolean hasTemporaryPassword, String name) {
         return MemberResponseDto.builder()
                 .storyId(storyId)
-                .hasTemporaryPassword(hasTemporaryPasswordt)
+                .hasTemporaryPassword(hasTemporaryPassword)
+                .name(name)
                 .build();
     }
 }

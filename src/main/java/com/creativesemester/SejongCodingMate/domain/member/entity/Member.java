@@ -33,15 +33,17 @@ public class Member {
    @Column(nullable = false)
    private Boolean hasTemporaryPassword;
 
+   @Column(nullable = false)
    private String name;
 
 
-   public static Member of (String memberId, String password, Story story, Boolean hasTemporaryPassword){
+   public static Member of (String memberId, String password, Story story, Boolean hasTemporaryPassword, String name){
       return Member.builder()
               .memberId(memberId)
               .password(password)
               .story(story)
               .hasTemporaryPassword(hasTemporaryPassword)
+              .name(name)
               .build();
    }
 

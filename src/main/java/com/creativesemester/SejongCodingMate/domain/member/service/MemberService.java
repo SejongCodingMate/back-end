@@ -49,7 +49,7 @@ public class MemberService {
         }
 
         String encodedPassword = passwordEncoder.encode(memberRequestDto.getPassword());
-        memberRepository.save(Member.of(memberRequestDto.getMemberId(), encodedPassword, story.get(), false));
+        memberRepository.save(Member.of(memberRequestDto.getMemberId(), encodedPassword, story.get(), false, "User"));
         return ResponseEntity.ok(GlobalResponseDto.of(SuccessType.SIGN_UP_SUCCESS));
     }
 
@@ -69,7 +69,7 @@ public class MemberService {
         response.addHeader(JwtUtil.AUTHORIZATION_HEADER, tokenDto.getAccessToken());
 
         return ResponseEntity.ok(GlobalResponseDto.of(SuccessType.LOG_IN_SUCCESS,
-                MemberResponseDto.of(member.get().getStory().getId(), member.get().getHasTemporaryPassword())));
+                MemberResponseDto.of(member.get().getStory().getId(), member.get().getHasTemporaryPassword(), member.get().getName())));
     }
 
     @Transactional
