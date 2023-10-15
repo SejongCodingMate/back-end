@@ -82,7 +82,7 @@ public class StoryService {
             return ResponseEntity.ok(GlobalResponseDto.of(SuccessType.GET_COURSE_SUCCESS, quizList));
         }
 
-        if (formatId == 3L) {
+        if (formatId == 3L || formatId == 4L) {
             Optional<Code> code = codeRepository.findByStoryId(id);
             List<Dialogue> dialogueList = dialogueRepository.findByStoryId(id);
 
@@ -93,7 +93,6 @@ public class StoryService {
                 codeList.add(d);
             }
             return ResponseEntity.ok(GlobalResponseDto.of(SuccessType.GET_CODE_SUCCESS, codeList));
-
         }
 
         return ResponseEntity
