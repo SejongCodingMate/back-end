@@ -1,6 +1,7 @@
 package com.creativesemester.SejongCodingMate.domain.member.entity;
 
 
+import com.creativesemester.SejongCodingMate.domain.chapter.entity.Chapter;
 import com.creativesemester.SejongCodingMate.domain.story.entity.Story;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,6 +25,10 @@ public class Member {
    @JoinColumn(name = "STORY_ID")
    private Story story;
 
+   @OneToOne
+   @JoinColumn(name = "CHAPTER_ID")
+   private Chapter chapter;
+
    @Column(unique = true, nullable = false)
    private String memberId;
 
@@ -37,11 +42,12 @@ public class Member {
    private String name;
 
 
-   public static Member of (String memberId, String password, Story story, Boolean hasTemporaryPassword, String name){
+   public static Member of (String memberId, String password, Story story, Chapter chapter, Boolean hasTemporaryPassword, String name){
       return Member.builder()
               .memberId(memberId)
               .password(password)
               .story(story)
+              .chapter(chapter)
               .hasTemporaryPassword(hasTemporaryPassword)
               .name(name)
               .build();
