@@ -78,7 +78,8 @@ public class MemberService {
         response.addHeader(JwtUtil.AUTHORIZATION_HEADER, tokenDto.getAccessToken());
 
         return ResponseEntity.ok(GlobalResponseDto.of(SuccessType.LOG_IN_SUCCESS,
-                MemberResponseDto.of(member.get().getStory().getId(), member.get().getHasTemporaryPassword(), member.get().getName())));
+                MemberResponseDto.of(member.get().getStory().getId(), member.get().getChapter().getId(),
+                        member.get().getHasTemporaryPassword(), member.get().getName())));
     }
 
     @Transactional
