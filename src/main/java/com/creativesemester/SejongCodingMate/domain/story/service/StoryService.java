@@ -6,17 +6,17 @@ import com.creativesemester.SejongCodingMate.domain.code.entity.Code;
 import com.creativesemester.SejongCodingMate.domain.code.repository.CodeRepository;
 import com.creativesemester.SejongCodingMate.domain.dialogue.entity.Dialogue;
 import com.creativesemester.SejongCodingMate.domain.dialogue.repository.DialogueRepository;
+import com.creativesemester.SejongCodingMate.domain.member.entity.Member;
 import com.creativesemester.SejongCodingMate.domain.member.repository.MemberRepository;
 import com.creativesemester.SejongCodingMate.domain.quiz.entity.Quiz;
 import com.creativesemester.SejongCodingMate.domain.quiz.repository.QuizRepository;
-import com.creativesemester.SejongCodingMate.domain.story.dto.request.SaveRequestDto;
+import com.creativesemester.SejongCodingMate.domain.story.dto.request.SaveStoryRequestDto;
 import com.creativesemester.SejongCodingMate.domain.story.dto.request.StoryRequestDto;
 import com.creativesemester.SejongCodingMate.domain.story.entity.Story;
 import com.creativesemester.SejongCodingMate.domain.story.repository.StoryRepository;
-import com.creativesemester.SejongCodingMate.domain.member.entity.Member;
 import com.creativesemester.SejongCodingMate.global.exception.exceptionType.StoryException;
-import com.creativesemester.SejongCodingMate.global.response.GlobalResponseDto;
 import com.creativesemester.SejongCodingMate.global.response.ErrorType;
+import com.creativesemester.SejongCodingMate.global.response.GlobalResponseDto;
 import com.creativesemester.SejongCodingMate.global.response.SuccessType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -100,9 +100,9 @@ public class StoryService {
                 .body(GlobalResponseDto.of(ErrorType.STORY_NOT_FOUND));
     }
 
-    public ResponseEntity<GlobalResponseDto> saveStory(Member member, SaveRequestDto saveRequestDto) {
+    public ResponseEntity<GlobalResponseDto> saveStory(Member member, SaveStoryRequestDto saveStoryRequestDto) {
 
-        Optional<Story> story = storyRepository.findById(saveRequestDto.getNextStoryId());
+        Optional<Story> story = storyRepository.findById(saveStoryRequestDto.getNextStoryId());
 
         if(story.isEmpty()){
             throw new StoryException(ErrorType.USER_NOT_FOUND);

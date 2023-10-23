@@ -65,6 +65,10 @@ public class Member {
       this.story = story;
    }
 
+   public void changeChapter(Chapter chapter){
+      this.chapter = chapter;
+   }
+
    public void changeHasTemporaryPassword(Boolean hasTemporaryPassword){
       this.hasTemporaryPassword = hasTemporaryPassword;
    }
