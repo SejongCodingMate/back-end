@@ -21,15 +21,20 @@ public class Chapter {
     private Long id;
 
     @Column(nullable = false)
-    private Long chapterNumber;
+    private Long firstStoryId;
 
     @Column(nullable = false)
     private String title;
 
+    @Column(nullable = false)
+    private String url;
+
+
     public static Chapter of(ChapterRequestDto chapterRequestDto) {
         return Chapter.builder()
-                .chapterNumber(chapterRequestDto.getChapterNumber())
                 .title(chapterRequestDto.getTitle())
+                .url(chapterRequestDto.getUrl())
+                .firstStoryId(chapterRequestDto.getFirstStoryId())
                 .build();
     }
 
