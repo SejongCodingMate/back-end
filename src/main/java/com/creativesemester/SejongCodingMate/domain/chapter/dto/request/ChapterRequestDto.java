@@ -13,6 +13,9 @@ public class ChapterRequestDto {
     @NotBlank(message = "첫번째 스토리 ID를 알려주세요.")
     private Long firstStoryId;
 
+    @NotBlank(message = "첫번째 스토리 ID를 알려주세요.")
+    private Long lastStoryId;
+
     @NotBlank(message = "챕터 제목을 알려주세요.")
     private String title;
 

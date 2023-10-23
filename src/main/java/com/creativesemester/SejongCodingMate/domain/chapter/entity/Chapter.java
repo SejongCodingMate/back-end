@@ -24,6 +24,9 @@ public class Chapter {
     private Long firstStoryId;
 
     @Column(nullable = false)
+    private Long lastStoryId;
+
+    @Column(nullable = false)
     private String title;
 
     @Column(nullable = false)
@@ -35,6 +38,7 @@ public class Chapter {
                 .title(chapterRequestDto.getTitle())
                 .url(chapterRequestDto.getUrl())
                 .firstStoryId(chapterRequestDto.getFirstStoryId())
+                .lastStoryId(chapterRequestDto.getLastStoryId())
                 .build();
     }
 
