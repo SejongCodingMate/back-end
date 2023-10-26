@@ -5,8 +5,9 @@ import lombok.Getter;
 import javax.validation.constraints.NotBlank;
 
 @Getter
-public class SaveRequestDto {
+public class SaveStoryRequestDto {
 
     @NotBlank()
     private Long nextStoryId;
+
 }

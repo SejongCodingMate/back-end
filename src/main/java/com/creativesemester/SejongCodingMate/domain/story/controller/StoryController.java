@@ -1,6 +1,6 @@
 package com.creativesemester.SejongCodingMate.domain.story.controller;
 
-import com.creativesemester.SejongCodingMate.domain.story.dto.request.SaveRequestDto;
+import com.creativesemester.SejongCodingMate.domain.story.dto.request.SaveStoryRequestDto;
 import com.creativesemester.SejongCodingMate.domain.story.dto.request.StoryRequestDto;
 import com.creativesemester.SejongCodingMate.domain.story.service.StoryService;
 import com.creativesemester.SejongCodingMate.global.response.GlobalResponseDto;
@@ -36,7 +36,7 @@ public class StoryController {
 
     // 4. 스토리 저장 (POST)
     @PostMapping("/api/story/save")
-    public ResponseEntity<GlobalResponseDto> saveStory (@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestBody SaveRequestDto saveRequestDto){
-        return storyService.saveStory(userDetails.getMember(), saveRequestDto);
+    public ResponseEntity<GlobalResponseDto> saveStory (@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestBody SaveStoryRequestDto saveStoryRequestDto){
+        return storyService.saveStory(userDetails.getMember(), saveStoryRequestDto);
     }
 }

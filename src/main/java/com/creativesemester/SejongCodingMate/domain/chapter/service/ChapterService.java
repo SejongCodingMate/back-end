@@ -1,12 +1,13 @@
 package com.creativesemester.SejongCodingMate.domain.chapter.service;
 
 import com.creativesemester.SejongCodingMate.domain.chapter.dto.request.ChapterRequestDto;
+import com.creativesemester.SejongCodingMate.domain.chapter.dto.request.SaveChapterRequestDto;
 import com.creativesemester.SejongCodingMate.domain.chapter.entity.Chapter;
 import com.creativesemester.SejongCodingMate.domain.chapter.repository.ChapterRepository;
-import com.creativesemester.SejongCodingMate.domain.story.repository.StoryRepository;
 import com.creativesemester.SejongCodingMate.domain.member.entity.Member;
-import com.creativesemester.SejongCodingMate.global.response.GlobalResponseDto;
+import com.creativesemester.SejongCodingMate.domain.member.repository.MemberRepository;
 import com.creativesemester.SejongCodingMate.global.response.ErrorType;
+import com.creativesemester.SejongCodingMate.global.response.GlobalResponseDto;
 import com.creativesemester.SejongCodingMate.global.response.SuccessType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +19,9 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class ChapterService {
-    private final StoryRepository storyRepository;
+
     private final ChapterRepository chapterRepository;
+    private final MemberRepository memberRepository;
 
     // 1. Chapter 생성 (POST)
     @Transactional
@@ -43,4 +45,18 @@ public class ChapterService {
     }
 
 
+    public ResponseEntity<GlobalResponseDto> saveChapter(Member member, SaveChapterRequestDto saveChapterRequestDto) {
+
+        Optional<Chapter> chapter = chapterRepository.findById(saveChapterRequestDto.getNextChapterId());
+
+        if (chapter.isEmpty()) {
+            return ResponseEntity.ok(GlobalResponseDto.of(ErrorType.CHAPTER_NOT_FOUND));
+        }
+
+        member.changeChapter(chapter.get());
+        memberRepository.save(member);
+
+        return ResponseEntity.ok(GlobalResponseDto.of(SuccessType.LOG_IN_SUCCESS));
+
+    }
 }

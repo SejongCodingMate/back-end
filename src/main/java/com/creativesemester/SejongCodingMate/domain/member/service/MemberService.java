@@ -1,6 +1,8 @@
 package com.creativesemester.SejongCodingMate.domain.member.service;
 
 
+import com.creativesemester.SejongCodingMate.domain.chapter.entity.Chapter;
+import com.creativesemester.SejongCodingMate.domain.chapter.repository.ChapterRepository;
 import com.creativesemester.SejongCodingMate.domain.member.dto.request.MemberIdRequestDto;
 import com.creativesemester.SejongCodingMate.domain.member.dto.request.MemberRequestDto;
 import com.creativesemester.SejongCodingMate.domain.member.dto.response.MemberResponseDto;
@@ -29,6 +31,7 @@ public class MemberService {
     private final JwtUtil jwtUtil;
     private final MemberRepository memberRepository;
     private final StoryRepository storyRepository;
+    private final ChapterRepository chapterRepository;
     private final PasswordEncoder passwordEncoder;
     private final MailService mailService;
 
@@ -42,6 +45,12 @@ public class MemberService {
             return ResponseEntity.ok(GlobalResponseDto.of(ErrorType.USER_EXIST));
         }
 
+        Optional<Chapter> chapter = chapterRepository.findById(1L);
+
+        if (chapter.isEmpty()) {
+            return ResponseEntity.ok(GlobalResponseDto.of(ErrorType.CHAPTER_NOT_FOUND));
+        }
+
         Optional<Story> story = storyRepository.findById(1L);
 
         if (story.isEmpty()) {
@@ -49,7 +58,7 @@ public class MemberService {
         }
 
         String encodedPassword = passwordEncoder.encode(memberRequestDto.getPassword());
-        memberRepository.save(Member.of(memberRequestDto.getMemberId(), encodedPassword, story.get(), false, "User"));
+        memberRepository.save(Member.of(memberRequestDto.getMemberId(), encodedPassword, story.get(), chapter.get(), false, "User"));
         return ResponseEntity.ok(GlobalResponseDto.of(SuccessType.SIGN_UP_SUCCESS));
     }
 
@@ -69,7 +78,8 @@ public class MemberService {
         response.addHeader(JwtUtil.AUTHORIZATION_HEADER, tokenDto.getAccessToken());
 
         return ResponseEntity.ok(GlobalResponseDto.of(SuccessType.LOG_IN_SUCCESS,
-                MemberResponseDto.of(member.get().getStory().getId(), member.get().getHasTemporaryPassword(), member.get().getName())));
+                MemberResponseDto.of(member.get().getStory().getId(), member.get().getChapter().getId(),
+                        member.get().getHasTemporaryPassword(), member.get().getName())));
     }
 
     @Transactional

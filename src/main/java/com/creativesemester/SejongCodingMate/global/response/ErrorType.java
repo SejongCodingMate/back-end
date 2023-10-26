@@ -30,7 +30,9 @@ public enum ErrorType {
 
     QUIZ_NOT_FOUND(400, "퀴즈를 찾을 수 없습니다."),
 
-    CODE_NOT_FOUND(400, "코드를 찾을 수 없습니다.");
+    CODE_NOT_FOUND(400, "코드를 찾을 수 없습니다."),
+
+    CHAPTER_NOT_FOUND(400, "챕터를 찾을 수 없습니다.");
 
 
     private final int statusCode;
