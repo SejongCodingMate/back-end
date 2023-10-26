@@ -8,7 +8,6 @@ import com.creativesemester.SejongCodingMate.domain.dialogue.entity.Dialogue;
 import com.creativesemester.SejongCodingMate.domain.dialogue.repository.DialogueRepository;
 import com.creativesemester.SejongCodingMate.domain.member.entity.Member;
 import com.creativesemester.SejongCodingMate.domain.member.repository.MemberRepository;
-import com.creativesemester.SejongCodingMate.domain.quiz.entity.Quiz;
 import com.creativesemester.SejongCodingMate.domain.quiz.repository.QuizRepository;
 import com.creativesemester.SejongCodingMate.domain.story.dto.request.SaveStoryRequestDto;
 import com.creativesemester.SejongCodingMate.domain.story.dto.request.StoryRequestDto;
@@ -68,21 +67,15 @@ public class StoryService {
                     .body(GlobalResponseDto.of(ErrorType.STORY_NOT_FOUND));
         }
 
-
         Long formatId = story.get().getFormatId();
 
-        if (formatId == 1L) {
+        if (formatId == 1L || formatId == 2L || formatId == 3L) {
             List<Dialogue> dialogueList = dialogueRepository.findByStoryId(id);
-
             return ResponseEntity.ok(GlobalResponseDto.of(SuccessType.GET_COURSE_SUCCESS, dialogueList));
         }
 
-        if (formatId == 2L) {
-            List<Quiz> quizList = quizRepository.findByStoryId(id);
-            return ResponseEntity.ok(GlobalResponseDto.of(SuccessType.GET_COURSE_SUCCESS, quizList));
-        }
-
-        if (formatId == 3L || formatId == 4L) {
+        // 수정 필요
+        if (formatId == 4L) {
             Optional<Code> code = codeRepository.findByStoryId(id);
             List<Dialogue> dialogueList = dialogueRepository.findByStoryId(id);
 
@@ -92,6 +85,7 @@ public class StoryService {
             for (Dialogue d : dialogueList) {
                 codeList.add(d);
             }
+
             return ResponseEntity.ok(GlobalResponseDto.of(SuccessType.GET_CODE_SUCCESS, codeList));
         }
 

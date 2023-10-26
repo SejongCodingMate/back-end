@@ -21,4 +21,8 @@ public class StoryRequestDto {
 
     @NotBlank()
     private String content;
+
+    @NotBlank()
+    private String backgroundImage;
+
 }

@@ -37,6 +37,9 @@ public class Story {
     @Column(nullable = false)
     private String content;
 
+    @Column(nullable = false)
+    private String backgroundImage;
+
     public static Story of(StoryRequestDto storyRequestDto, Chapter chapter){
         return Story.builder()
                 .nextId(storyRequestDto.getNextId())
@@ -44,6 +47,7 @@ public class Story {
                 .formatId(storyRequestDto.getFormatId())
                 .chapter(chapter)
                 .content(storyRequestDto.getContent())
+                .backgroundImage(storyRequestDto.getBackgroundImage())
                 .build();
     }
 }
