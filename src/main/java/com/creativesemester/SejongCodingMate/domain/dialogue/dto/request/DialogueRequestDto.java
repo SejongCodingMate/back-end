@@ -17,4 +17,7 @@ public class DialogueRequestDto {
     private Long soundEffect;
     @NotBlank()
     private Long screenEffect;
+    @NotBlank()
+    private String characterImage;
+
 }

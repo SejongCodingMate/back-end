@@ -1,9 +1,7 @@
 package com.creativesemester.SejongCodingMate.domain.dialogue.entity;
 
 
-import com.creativesemester.SejongCodingMate.domain.chapter.dto.request.ChapterRequestDto;
 import com.creativesemester.SejongCodingMate.domain.dialogue.dto.request.DialogueRequestDto;
-import com.creativesemester.SejongCodingMate.domain.dialogue.repository.DialogueRepository;
 import com.creativesemester.SejongCodingMate.domain.story.entity.Story;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -39,6 +37,9 @@ public class Dialogue {
     @Column(nullable = false)
     private Long soundEffect;
 
+    @Column(nullable = false)
+    private String characterImage;
+
     public static Dialogue of(DialogueRequestDto dialogueRequestDto, Story story) {
         return Dialogue.builder()
                 .story(story)
@@ -46,6 +47,7 @@ public class Dialogue {
                 .text(dialogueRequestDto.getText())
                 .screenEffect(dialogueRequestDto.getScreenEffect())
                 .soundEffect(dialogueRequestDto.getSoundEffect())
+                .characterImage(dialogueRequestDto.getCharacterImage())
                 .build();
     }
 
