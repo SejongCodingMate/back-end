@@ -10,10 +10,10 @@ public class CodeRequestDto {
     @NotBlank()
     private String code;
     @NotBlank()
-    private String result;
-
+    private String hint;
     @NotBlank()
-    private Boolean isInput;
+    private String input;
+
     @NotBlank()
     private Long storyId;
 

@@ -72,12 +72,6 @@ public class CodeService {
                     .body(GlobalResponseDto.of(ErrorType.CODE_NOT_FOUND));
         }
 
-        if (!code.get().getIsInput()) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(GlobalResponseDto.of(ErrorType.NOT_VALID_REQUEST));
-        }
-
         String input = codeExecuteRequestDto.getInput();
         String executeCode = "# -*- coding: utf-8 -*-\n" + code.get().getCode();
 

@@ -27,17 +27,17 @@ public class Code {
     @Column(nullable = false)
     private String code;
 
-    private String result;
-
     @Column(nullable = false)
-    private Boolean isInput;
+    private String hint;
+
+    private String input;
 
     public static Code of(CodeRequestDto codeRequestDto, Story story) {
         return Code.builder()
                 .story(story)
                 .code(codeRequestDto.getCode())
-                .result(codeRequestDto.getResult())
-                .isInput(codeRequestDto.getIsInput())
+                .hint(codeRequestDto.getHint())
+                .input(codeRequestDto.getInput())
                 .build();
     }
 }
