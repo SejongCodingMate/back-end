@@ -26,9 +26,11 @@ public class CompilerService {
                     .start();
 
             // 3. Enter input
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()));
-            writer.write(input);
-            writer.close();
+            if (input != null) {
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()));
+                writer.write(input);
+                writer.close();
+            }
 
             // 4. Execute process then Check Timeout and Error
             long timeoutInSeconds = 10; // 타임아웃 설정 (초)
