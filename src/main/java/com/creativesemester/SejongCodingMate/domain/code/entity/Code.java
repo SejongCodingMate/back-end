@@ -30,6 +30,15 @@ public class Code {
     @Column(nullable = false)
     private String hint;
 
+    @Column(nullable = false)
+    private String answer;
+
+    @Column(nullable = false)
+    private String characterImage;
+
+    @Column(nullable = false)
+    private String itemImage;
+
     private String input;
 
     public static Code of(CodeRequestDto codeRequestDto, Story story) {

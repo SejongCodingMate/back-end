@@ -12,6 +12,12 @@ public class CodeRequestDto {
     @NotBlank()
     private String hint;
     @NotBlank()
+    private String answer;
+    @NotBlank()
+    private String characterImage;
+    @NotBlank()
+    private String itemImage;
+    @NotBlank()
     private String input;
 
     @NotBlank()
