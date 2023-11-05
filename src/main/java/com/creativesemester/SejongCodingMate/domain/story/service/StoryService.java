@@ -75,8 +75,8 @@ public class StoryService {
 
 
         if (formatId == 5L) {
-            Optional<Code> code = codeRepository.findByStoryId(id);
-            return ResponseEntity.ok(GlobalResponseDto.of(SuccessType.GET_CODE_SUCCESS, code));
+            List<Code> codeList = codeRepository.findByStoryId(id);
+            return ResponseEntity.ok(GlobalResponseDto.of(SuccessType.GET_CODE_SUCCESS, codeList));
         }
 
         return ResponseEntity
