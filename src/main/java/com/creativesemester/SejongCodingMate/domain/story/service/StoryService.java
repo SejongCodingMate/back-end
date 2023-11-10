@@ -80,6 +80,9 @@ public class StoryService {
             List<Dialogue> dialogueList = dialogueRepository.findByStoryId(id);
 
             List<Object> list = new ArrayList<>();
+            for (Code c : codeList) {
+                list.add(c);
+            }
             list.add(codeList);
             for (Dialogue d : dialogueList) {
                 list.add(d);
