@@ -22,7 +22,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -69,23 +68,14 @@ public class StoryService {
 
         Long formatId = story.get().getFormatId();
 
-        if (formatId == 1L || formatId == 2L || formatId == 3L) {
+        if (formatId == 1L || formatId == 2L || formatId == 3L || formatId == 4L) {
             List<Dialogue> dialogueList = dialogueRepository.findByStoryId(id);
             return ResponseEntity.ok(GlobalResponseDto.of(SuccessType.GET_COURSE_SUCCESS, dialogueList));
         }
 
-        // 수정 필요
-        if (formatId == 4L) {
-            Optional<Code> code = codeRepository.findByStoryId(id);
-            List<Dialogue> dialogueList = dialogueRepository.findByStoryId(id);
 
-            List<Object> codeList = new ArrayList<>();
-
-            codeList.add(code);
-            for (Dialogue d : dialogueList) {
-                codeList.add(d);
-            }
-
+        if (formatId == 5L) {
+            List<Code> codeList = codeRepository.findByStoryId(id);
             return ResponseEntity.ok(GlobalResponseDto.of(SuccessType.GET_CODE_SUCCESS, codeList));
         }
 

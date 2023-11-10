@@ -65,21 +65,9 @@ public class CodeService {
     @Transactional
     public ResponseEntity<GlobalResponseDto> executeCode(Member member, CodeExecuteRequestDto codeExecuteRequestDto) {
 
-        Optional<Code> code = codeRepository.findByStoryId(codeExecuteRequestDto.getStoryId());
-        if (code.isEmpty()) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(GlobalResponseDto.of(ErrorType.CODE_NOT_FOUND));
-        }
-
-        if (!code.get().getIsInput()) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(GlobalResponseDto.of(ErrorType.NOT_VALID_REQUEST));
-        }
-
         String input = codeExecuteRequestDto.getInput();
-        String executeCode = "# -*- coding: utf-8 -*-\n" + code.get().getCode();
+        String executeCode = "# -*- coding: utf-8 -*-\n" + codeExecuteRequestDto.getCode();
+
 
         Object[] result = compilerService.runCode(executeCode, input);
         if (result[0].getClass() == ErrorType.class) {
@@ -90,11 +78,6 @@ public class CodeService {
         SuccessType successType = (SuccessType) result[0];
         String output = (String) result[1];
 
-        // 이름 변경 코드에 대해서 수행
-        if (codeExecuteRequestDto.getStoryId() == 4) {
-            member.changeName(input);
-            memberRepository.save(member);
-        }
         return ResponseEntity.ok(GlobalResponseDto.of(successType, output));
     }
 }

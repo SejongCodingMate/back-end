@@ -8,8 +8,8 @@ import javax.validation.constraints.NotBlank;
 public class CodeExecuteRequestDto {
 
     @NotBlank()
-    private String input;
+    private String code;
     @NotBlank()
-    private Long storyId;
+    private String input;
 
 }
