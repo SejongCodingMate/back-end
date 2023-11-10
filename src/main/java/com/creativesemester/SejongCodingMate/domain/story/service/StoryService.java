@@ -71,8 +71,15 @@ public class StoryService {
         Long formatId = story.get().getFormatId();
 
         if (formatId == 1L || formatId == 2L || formatId == 3L || formatId == 4L) {
+            List<Code> codeList = codeRepository.findByStoryId(id);
             List<Dialogue> dialogueList = dialogueRepository.findByStoryId(id);
-            return ResponseEntity.ok(GlobalResponseDto.of(SuccessType.GET_COURSE_SUCCESS, dialogueList));
+
+            List<Object> list = new ArrayList<>();
+            list.add(codeList);
+            for (Dialogue d : dialogueList) {
+                list.add(d);
+            }
+            return ResponseEntity.ok(GlobalResponseDto.of(SuccessType.GET_COURSE_SUCCESS, list));
         }
 
 
