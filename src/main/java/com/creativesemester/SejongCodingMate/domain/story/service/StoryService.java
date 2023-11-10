@@ -23,6 +23,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -82,7 +83,14 @@ public class StoryService {
 
         if (formatId == 6L) {
             StoryLevel storyLevel = storyLevelRepository.findByStoryId(id);
-            return ResponseEntity.ok(GlobalResponseDto.of(SuccessType.GET_CODE_SUCCESS, storyLevel));
+            List<Dialogue> dialogueList = dialogueRepository.findByStoryId(id);
+
+            List<Object> list = new ArrayList<>();
+            list.add(storyLevel);
+            for (Dialogue d : dialogueList) {
+                list.add(d);
+            }
+            return ResponseEntity.ok(GlobalResponseDto.of(SuccessType.GET_CODE_SUCCESS, list));
         }
 
         return ResponseEntity
