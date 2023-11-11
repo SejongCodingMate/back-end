@@ -83,7 +83,6 @@ public class StoryService {
             for (Code c : codeList) {
                 list.add(c);
             }
-            list.add(codeList);
             for (Dialogue d : dialogueList) {
                 list.add(d);
             }
