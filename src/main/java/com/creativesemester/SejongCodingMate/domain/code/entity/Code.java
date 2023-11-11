@@ -28,6 +28,9 @@ public class Code {
     private String code;
 
     @Column(nullable = false)
+    private String text;
+
+    @Column(nullable = false)
     private String hint;
 
     @Column(nullable = false)
@@ -47,6 +50,7 @@ public class Code {
                 .code(codeRequestDto.getCode())
                 .hint(codeRequestDto.getHint())
                 .input(codeRequestDto.getInput())
+                .text(codeRequestDto.getText())
                 .build();
     }
 }
