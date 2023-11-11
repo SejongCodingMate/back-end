@@ -8,10 +8,11 @@ import com.creativesemester.SejongCodingMate.domain.dialogue.entity.Dialogue;
 import com.creativesemester.SejongCodingMate.domain.dialogue.repository.DialogueRepository;
 import com.creativesemester.SejongCodingMate.domain.member.entity.Member;
 import com.creativesemester.SejongCodingMate.domain.member.repository.MemberRepository;
-import com.creativesemester.SejongCodingMate.domain.quiz.repository.QuizRepository;
 import com.creativesemester.SejongCodingMate.domain.story.dto.request.SaveStoryRequestDto;
 import com.creativesemester.SejongCodingMate.domain.story.dto.request.StoryRequestDto;
 import com.creativesemester.SejongCodingMate.domain.story.entity.Story;
+import com.creativesemester.SejongCodingMate.domain.story.entity.StoryLevel;
+import com.creativesemester.SejongCodingMate.domain.story.repository.StoryLevelRepository;
 import com.creativesemester.SejongCodingMate.domain.story.repository.StoryRepository;
 import com.creativesemester.SejongCodingMate.global.exception.exceptionType.StoryException;
 import com.creativesemester.SejongCodingMate.global.response.ErrorType;
@@ -22,6 +23,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,11 +32,11 @@ import java.util.Optional;
 public class StoryService {
 
     private final StoryRepository storyRepository;
-    private final QuizRepository quizRepository;
     private final MemberRepository memberRepository;
     private final ChapterRepository chapterRepository;
     private final DialogueRepository dialogueRepository;
     private final CodeRepository codeRepository;
+    private final StoryLevelRepository storyLevelRepository;
 
 
     // 1. Story 등록 (POST)
@@ -68,15 +70,41 @@ public class StoryService {
 
         Long formatId = story.get().getFormatId();
 
-        if (formatId == 1L || formatId == 2L || formatId == 3L || formatId == 4L) {
+        if (formatId == 1L || formatId == 2L || formatId == 3L) {
             List<Dialogue> dialogueList = dialogueRepository.findByStoryId(id);
             return ResponseEntity.ok(GlobalResponseDto.of(SuccessType.GET_COURSE_SUCCESS, dialogueList));
+        }
+
+        if (formatId == 4L) {
+            List<Code> codeList = codeRepository.findByStoryId(id);
+            List<Dialogue> dialogueList = dialogueRepository.findByStoryId(id);
+
+            List<Object> list = new ArrayList<>();
+            for (Code c : codeList) {
+                list.add(c);
+            }
+            for (Dialogue d : dialogueList) {
+                list.add(d);
+            }
+            return ResponseEntity.ok(GlobalResponseDto.of(SuccessType.GET_COURSE_SUCCESS, list));
         }
 
 
         if (formatId == 5L) {
             List<Code> codeList = codeRepository.findByStoryId(id);
             return ResponseEntity.ok(GlobalResponseDto.of(SuccessType.GET_CODE_SUCCESS, codeList));
+        }
+
+        if (formatId == 6L) {
+            StoryLevel storyLevel = storyLevelRepository.findByStoryId(id);
+            List<Dialogue> dialogueList = dialogueRepository.findByStoryId(id);
+
+            List<Object> list = new ArrayList<>();
+            list.add(storyLevel);
+            for (Dialogue d : dialogueList) {
+                list.add(d);
+            }
+            return ResponseEntity.ok(GlobalResponseDto.of(SuccessType.GET_CODE_SUCCESS, list));
         }
 
         return ResponseEntity
