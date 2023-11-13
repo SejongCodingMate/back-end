@@ -66,7 +66,10 @@ public class CodeService {
     public ResponseEntity<GlobalResponseDto> executeCode(Member member, CodeExecuteRequestDto codeExecuteRequestDto) {
 
         String input = codeExecuteRequestDto.getInput();
-        String executeCode = "# -*- coding: utf-8 -*-\n" + codeExecuteRequestDto.getCode();
+        System.out.println("input = " + input);
+        String executeCode =  "# -*- coding: utf-8 -*-\n" + codeExecuteRequestDto.getCode().replace("\\n", "\n");
+        
+        System.out.println(executeCode);
 
 
         Object[] result = compilerService.runCode(executeCode, input);
