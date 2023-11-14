@@ -90,7 +90,8 @@ public class StoryService {
 
         if (formatId == 5L) {
             Code code = codeRepository.findByStoryId(id);
-            List<Code> codeList = (List<Code>) code;
+            List<Code> codeList = new ArrayList<>();
+            codeList.add(code);
             return ResponseEntity.ok(GlobalResponseDto.of(SuccessType.GET_CODE_SUCCESS, codeList));
         }
 
