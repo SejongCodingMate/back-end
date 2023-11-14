@@ -76,13 +76,11 @@ public class StoryService {
         }
 
         if (formatId == 4L) {
-            List<Code> codeList = codeRepository.findByStoryId(id);
+            Code code = codeRepository.findByStoryId(id);
             List<Dialogue> dialogueList = dialogueRepository.findByStoryId(id);
 
             List<Object> list = new ArrayList<>();
-            for (Code c : codeList) {
-                list.add(c);
-            }
+            list.add(code);
             for (Dialogue d : dialogueList) {
                 list.add(d);
             }
@@ -91,7 +89,8 @@ public class StoryService {
 
 
         if (formatId == 5L) {
-            List<Code> codeList = codeRepository.findByStoryId(id);
+            Code code = codeRepository.findByStoryId(id);
+            List<Code> codeList = (List<Code>) code;
             return ResponseEntity.ok(GlobalResponseDto.of(SuccessType.GET_CODE_SUCCESS, codeList));
         }
 
