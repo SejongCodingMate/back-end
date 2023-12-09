@@ -65,11 +65,29 @@ public class CodeService {
     @Transactional
     public ResponseEntity<GlobalResponseDto> executeCode(Member member, CodeExecuteRequestDto codeExecuteRequestDto) {
 
+        Optional<Story> story = storyRepository.findById(codeExecuteRequestDto.getStoryId());
+        if (story.isEmpty()) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(GlobalResponseDto.of(ErrorType.STORY_NOT_FOUND));
+        }
+
+        Optional<Code> code = codeRepository.findByStory(story.get());
+        if (code.isEmpty()) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(GlobalResponseDto.of(ErrorType.CODE_NOT_FOUND));
+        }
+
+
         String input = codeExecuteRequestDto.getInput();
-        String executeCode = "# -*- coding: utf-8 -*-\n" + codeExecuteRequestDto.getCode();
+        System.out.println("input = " + input);
+        String executeCode =  "# -*- coding: utf-8 -*-\n" + codeExecuteRequestDto.getCode().replace("\\n", "\n");
+
+        System.out.println(executeCode);
 
 
-        Object[] result = compilerService.runCode(executeCode, input);
+        Object[] result = compilerService.runCode(executeCode, input, code.get().getAnswer());
         if (result[0].getClass() == ErrorType.class) {
             return ResponseEntity
                     .badRequest()

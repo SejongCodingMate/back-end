@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 @Service
 @RequiredArgsConstructor
 public class CompilerService {
-    public Object[] runCode(String executeCode, String input) {
+    public Object[] runCode(String executeCode, String input, String answer) {
         try {
             // 1. Create main.py File
             File tempFile = new File("./main.py");
@@ -53,7 +53,14 @@ public class CompilerService {
                 output.append(line).append("\n");
             }
             br.close();
-            return new Object[]{SuccessType.CODE_ACCEPT, output.toString()};
+
+            String codeExecuteAnswer = output.toString();
+
+            if (codeExecuteAnswer.equals(answer)) {
+                return new Object[]{SuccessType.CODE_ACCEPT, output.toString()};
+            } else {
+                return new Object[]{SuccessType.CODE_WRONG_ANSWER, output.toString()};
+            }
 
         } catch (Exception e) {
             return new Object[]{ErrorType.CODE_EXCEPTION, null};

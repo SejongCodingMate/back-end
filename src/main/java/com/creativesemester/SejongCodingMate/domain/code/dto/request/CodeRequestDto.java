@@ -10,6 +10,8 @@ public class CodeRequestDto {
     @NotBlank()
     private String code;
     @NotBlank()
+    private String text;
+    @NotBlank()
     private String hint;
     @NotBlank()
     private String answer;

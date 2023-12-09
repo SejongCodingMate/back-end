@@ -12,4 +12,7 @@ public class CodeExecuteRequestDto {
     @NotBlank()
     private String input;
 
+    @NotBlank()
+    private Long storyId;
+
 }
